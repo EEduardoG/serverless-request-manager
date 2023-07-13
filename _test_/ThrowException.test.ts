@@ -45,8 +45,8 @@ describe(desciption, () => {
 
             try {
                 let error: IException = {
-                    code: "HANDLED_ERROR",
-                    body: "This is a handled error.",
+                    code: "CUSTOM_CODE_ERROR",
+                    body: "This is a custom error.",
                     exceptionCode: ExceptionCode.BAD_REQUEST
                 }
 
