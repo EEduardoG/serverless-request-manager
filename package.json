@@ -1,7 +1,7 @@
 {
     "name": "serverless-request-manager",
     "description": "Request and response manager in serverless environments.",
-    "version": "0.0.3",
+    "version": "0.0.4",
     "author": "Erick Garcia",
     "license": "MIT",
     "main": "dist/index.js",
