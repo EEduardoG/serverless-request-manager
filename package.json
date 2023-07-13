@@ -1,6 +1,6 @@
 {
     "name": "serverless-request-manager",
-    "description": "Request and response manager in serverless environments",
+    "description": "Request and response manager in serverless environments.",
     "version": "0.0.1",
     "author": "Erick Garcia",
     "license": "MIT",

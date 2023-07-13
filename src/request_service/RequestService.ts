@@ -54,19 +54,6 @@ export default class RequestService implements IRequestServicePort {
         return queryParams;
     }
 
-    getEvent(event: any): KeyString | null {
-        let query: KeyString | null = null;
-
-        if (event.queryStringParameters) {
-            try {
-                query = JSON.parse(event.queryStringParameters)
-            } catch (error) {
-                query = event?.queryStringParameters ? event?.queryStringParameters : null;
-            }
-        }
-        return query
-    }
-
 
     setToken(token: string | undefined = undefined): ITokenDecoded | null {
 
