@@ -55,6 +55,16 @@ const successResponse = responseService.responseSuccess({
 });
 ```
 
+It returns:
+```json
+{
+  "statusCode": 200,
+  "body": "{\n  \"code\": \"MY_SUCCESS_CODE\",\n  \"message\": \"You did it right!\"\n}",
+}
+```
+
+
+
 ### Setting an exception
 The setException method is used to set an exception or error in the request service. This can be useful for capturing and handling errors during request processing.
 ```javascript
@@ -65,14 +75,14 @@ return requestService.setException(error);
 It returns: 
 ```json
 {
-  statusCode: 500,
-  body: "{\n  \"code\": \"INTERNAL_ERROR\",\n  \"message\": \"Houston we have a problem!\"\n}",
+  "statusCode": 500,
+  "body": "{\n  \"code\": \"INTERNAL_ERROR\",\n  \"message\": \"Houston we have a problem!\"\n}",
 }
 ```
 
 By passing a custom **IException** object as parameter to setException, you can override the default error code and message.
 
-```json
+```javascript
 const error: IException = {
     code: "CUSTOM_CODE_ERROR",
     body: "This is a custom error.",
@@ -84,8 +94,8 @@ return requestService.setException(error);
 It returns: 
 ```json
 {
-  statusCode: 400,
-  body: "{\n  \"code\": \"CUSTOM_CODE_ERROR\",\n  \"message\": \"Bad request.\"\n}",
+  "statusCode": 400,
+  "body": "{\n  \"code\": \"CUSTOM_CODE_ERROR\",\n  \"message\": \"Bad request.\"\n}",
 }
 ```
 
