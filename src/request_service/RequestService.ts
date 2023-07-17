@@ -15,7 +15,7 @@ export default class RequestService implements IRequestServicePort {
         let requestEvent: IEvent = {
             payload: this.setPayload(event?.body),
             queryParams: this.setQueryParams(event),
-            token: this.setToken(event.headers.authorization),
+            token: this.setToken(event?.headers?.authorization ? event?.headers?.authorization : event?.headers?.Authorization),
             eventExecutionData: this.setEventExecutionData(event),
             eventRaw: event
         }

@@ -1,10 +1,10 @@
 
+
+
+# serverless-request-manager
+serverless-request-manager provides methods for setting and retrieving various elements from a request event.
+
 ## Usage/Examples
-
-### RequestService
-
-The RequestService class provides methods for setting and retrieving various elements from a request event.
-
 #### Importing the RequestService
 
 ```javascript
@@ -119,4 +119,3 @@ Open a pull request on GitHub.
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE). file for more details.
-
