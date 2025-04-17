@@ -6,7 +6,7 @@ import { IResponseMin } from "../interfaces/IResponseMin";
 
 abstract class AResponseService {
 
-    response(statusCode: number = 200, data: any, code: string = "SUCCESS") {
+    response(statusCode: number = 200, data: any, code: string = "SUCCESS"): IResponse {
         let response: IResponse = {
             statusCode: statusCode,
             body: JSON.stringify(
@@ -32,7 +32,7 @@ export default class ResponseService extends AResponseService {
 
     responseSuccess(params?: IResponseMin) {
         const parameters: IResponseMin = {
-            data: params?.data ? params?.data : "Upload succesfully.",
+            data: params?.data ? params?.data : "Upload successfully.",
             code: params?.code ? params?.code : "SUCCESS"
         }
         return this.response(200, parameters.data, parameters.code);
@@ -56,7 +56,7 @@ export default class ResponseService extends AResponseService {
 
     responseNotFound(params?: IResponseMin) {
         const parameters: IResponseMin = {
-            data: params?.data ? params?.data : "Resource not found,",
+            data: params?.data ? params?.data : "Resource not found.",
             code: params?.code ? params?.code : "NOT_FOUND"
         }
         return this.response(404, parameters.data, parameters.code);
@@ -64,7 +64,7 @@ export default class ResponseService extends AResponseService {
 
     responseUnauthorized(params?: IResponseMin) {
         const parameters: IResponseMin = {
-            data: params?.data ? params?.data : "You dont have authorization to this resource",
+            data: params?.data ? params?.data : "You don't have permission to this resource",
             code: params?.code ? params?.code : "UNAUTHORIZED"
         }
         return this.response(401, parameters.data, parameters.code);
@@ -72,7 +72,7 @@ export default class ResponseService extends AResponseService {
 
     responseForbidden(params?: IResponseMin) {
         const parameters: IResponseMin = {
-            data: params?.data ? params?.data : "You dont have permission to this resource",
+            data: params?.data ? params?.data : "You don't have permission to this resource",
             code: params?.code ? params?.code : "FORBIDDEN"
         }
         return this.response(403, parameters.data, parameters.code);
