@@ -2,68 +2,95 @@
 
 
 # serverless-request-manager
-serverless-request-manager provides methods for setting and retrieving various elements from a request event.
 
-## Usage/Examples
-#### Importing the RequestService
+**serverless-request-manager** is a Node.js library that simplifies request and response management for serverless applications (e.g., AWS Lambda, API Gateway, etc). It provides utilities to parse events, extract parameters, decode JWT tokens, and generate standard HTTP responses for various scenarios.
 
-```javascript
-import { RequestService } from 'serverless-request-manager';
+---
+
+## Table of Contents
+- [Description](#description)
+- [Installation](#installation)
+- [Basic Usage](#basic-usage)
+- [API Reference](#api-reference)
+- [Project Structure](#project-structure)
+- [Testing](#testing)
+- [Contribution](#contribution)
+- [License](#license)
+- [Contact](#contact)
+
+---
+
+## Description
+
+This library abstracts the manipulation of events and responses in serverless environments, allowing you to:
+- Parse and structure incoming events.
+- Extract and decode JWT tokens.
+- Generate standard HTTP responses (success, error, unauthorized, etc).
+
+Ideal for projects that require consistent and reusable request/response handling in serverless functions.
+
+---
+
+## Installation
+
+```bash
+npm install serverless-request-manager
 ```
-#### Creating an instance
+
+---
+
+## Basic Usage
+
+### Import and create instances
+
 ```javascript
+import { RequestService, ResponseService } from 'serverless-request-manager';
+
 const requestService = new RequestService();
-```
-
-#### Setting the event
-
-The setEvent method is used to set the request event data and extract relevant information from it.
-
-```javascript
-const event = { /* Your event data */ };
-const requestEvent = requestService.setEvent(event);
-```
-
-The requestEvent object will contain the parsed payload, query parameters, token information, and other event execution data.
-
-### ResponseService
-
-#### Creating an instance
-```javascript
 const responseService = new ResponseService();
 ```
 
-#### Generating responses
+### Parse an event
 
-The ResponseService provides methods for generating responses for different scenarios such as success, bad request, internal error, not found, unauthorized, and forbidden.
 ```javascript
-const successResponse = responseService.responseSuccess();
-const badRequestResponse = responseService.responseBadRequest();
-const internalErrorResponse = responseService.responseInternalError();
-const notFoundResponse = responseService.responseNotFound();
-const unauthorizedResponse = responseService.responseUnauthorized();
-const forbiddenResponse = responseService.responseForbidden();
+const event = {
+  body: '{"foo": "bar"}',
+  queryStringParameters: '{"search": "abc"}',
+  headers: { authorization: 'Bearer <jwt-token>' },
+  requestContext: { /* ... */ }
+};
+
+const requestEvent = requestService.setEvent(event);
+// requestEvent: { payload, queryParams, token, eventExecutionData, eventRaw }
 ```
 
-You can also pass custom parameters to these methods to override the default response messages and codes.
+### Generate standard responses
+
 ```javascript
-const successResponse = responseService.responseSuccess({
-    code:"MY_SUCCESS_CODE",
-    data: [{
-        message:"You did it right!"
-    }]
+const ok = responseService.responseSuccess();
+const badRequest = responseService.responseBadRequest();
+const internalError = responseService.responseInternalError();
+const notFound = responseService.responseNotFound();
+const unauthorized = responseService.responseUnauthorized();
+const forbidden = responseService.responseForbidden();
+```
+
+#### Custom response
+
+```javascript
+const custom = responseService.responseSuccess({
+  code: 'MY_SUCCESS_CODE',
+  data: [{ message: 'You did it right!' }]
 });
 ```
 
-It returns:
+Returns an object:
 ```json
 {
   "statusCode": 200,
   "body": "{\n  \"code\": \"MY_SUCCESS_CODE\",\n  \"message\": \"You did it right!\"\n}",
 }
 ```
-
-
 
 ### Setting an exception
 The setException method is used to set an exception or error in the request service. This can be useful for capturing and handling errors during request processing.
