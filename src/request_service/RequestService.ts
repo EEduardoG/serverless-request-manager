@@ -8,41 +8,44 @@ export default class RequestService implements IRequestServicePort {
 
     constructor() { }
 
-
-
-    setEvent(event: any): IEvent {
-
+    setEvent(event: any,type?:string): IEvent {
         let requestEvent: IEvent = {
-            payload: this.setPayload(event?.body),
+            payload: this.setPayload(event),
             queryParams: this.setQueryParams(event),
             token: this.setToken(event?.headers?.authorization ? event?.headers?.authorization : event?.headers?.Authorization),
-            eventExecutionData: this.setEventExecutionData(event),
-            eventRaw: event
+            requestContext: this.setRequestContext(event),
+            eventRaw: event,
+            type:type
         }
-
         return requestEvent
-
     }
 
-
-    setEventExecutionData(event: any) {
+    setRequestContext(event: any) {
         return event?.requestContext ? event?.requestContext : null
     }
 
-
-    setPayload(payload: any = {}): KeyString | null {
+    setPayload(event: any = {}): KeyString | null {
         let response: KeyString | null = null;
-        try {
-            response = JSON.parse(payload)
-        } catch (error) {
-            response = payload ? payload : null;
+
+        if(event?.body){
+            try {
+                response = JSON.parse(event)
+            } catch (error) {
+                response = event ? event : null;
+            }
+        }else{
+            try {
+                response = JSON.parse(event)
+            } catch (error) {
+                response = event ? event : null;
+            }
         }
+
         return response;
     }
 
 
     setQueryParams(event: any): KeyString | null {
-
         //Declare queryParams variable as key value object
         let queryParams: KeyString = {}
 
@@ -56,9 +59,7 @@ export default class RequestService implements IRequestServicePort {
 
 
     setToken(token: string | undefined = undefined): ITokenDecoded | null {
-
         if (token) {
-
             try {
                 let deserialize: any = token.replace("Bearer ", "")
                 deserialize = jwt_decode(token)
@@ -67,7 +68,6 @@ export default class RequestService implements IRequestServicePort {
             } catch (error) {
                 return null
             }
-
         } else {
             return null
         }

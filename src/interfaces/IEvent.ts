@@ -2,6 +2,7 @@ export interface IEvent {
     payload: any,
     queryParams: any,
     token: any,
-    eventExecutionData: any,
+    requestContext: any,
     eventRaw: any
+    type?:string
 }

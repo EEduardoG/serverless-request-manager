@@ -5,5 +5,5 @@ export default interface IRequestServicePort {
     setPayload(payload: any): any
     setQueryParams(event: any): any
     setToken(token: string): any
-    setEventExecutionData(event: any): any
+    setRequestContext(event: any): any
 }
