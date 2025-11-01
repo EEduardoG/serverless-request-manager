@@ -29,7 +29,7 @@ export default class RequestService implements IRequestServicePort {
 
         if(event?.body){
             try {
-                response = JSON.parse(event)
+                response = JSON.parse(event.body)
             } catch (error) {
                 response = event ? event : null;
             }
